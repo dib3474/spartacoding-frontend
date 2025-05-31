@@ -57,7 +57,7 @@ export const TodoForm = ({
         color="primary"
         onClick={handleAddTodo}
         fullWidth
-        disabled={!todo.trim() || todo.trim().length >= maxTextLength || !deadline}
+        disabled={!todo.trim() || todo.trim().length >= maxTextLength || !deadline || deadline < new Date().toISOString().split('T')[0]}
       >
         Add Todo
       </Button>
