@@ -26,4 +26,18 @@ describe('TodoList 통합 테스트', () => {
     fireEvent.click(deleteBtn);
     expect(todoText).not.toBeInTheDocument();
   });
+
+  it('할 일을 입력할 때 100자 이상 작성하면 입력할 수 없다.', () => {
+    //given
+    const maxText = "m".repeat(100);
+    render(<App />);
+    const todoInput = screen.getByLabelText('New Todo');
+    const dateInput = screen.getByLabelText('Deadline');
+    //when
+    fireEvent.change(todoInput, { target: {value: maxText}});
+    fireEvent.change(dateInput, { target: {value: '2025-06-02'}});
+    //then
+    const addButton = screen.getByRole('button', { name: 'Add Todo'});
+    expect(addButton).toBeDisabled();
+  });
 });
